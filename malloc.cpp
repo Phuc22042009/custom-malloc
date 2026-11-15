@@ -114,6 +114,11 @@ public:
     explicit SimpleDoublyLinkedMalloc(size_t initial_pages = 1)
         : raw_mem(nullptr), total_bytes(0), my_header(nullptr)
     {
+        if (initial_pages == 0 || initial_pages > UINT16_MAX)
+        {
+            std::exit(1);
+        }
+
         total_bytes = initial_pages * PAGE_SIZE;
 
 #ifdef _WIN32
