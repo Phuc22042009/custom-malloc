@@ -165,7 +165,7 @@ public:
 
     void *malloc(size_t size)
     {
-        if (size == 0)
+        if (size == 0 || size > SIZE_MAX - ALIGNMENT)
         {
             return nullptr;
         }
@@ -243,6 +243,11 @@ public:
         if (new_size == 0)
         {
             this->free(ptr);
+            return nullptr;
+        }
+
+        if (new_size > SIZE_MAX - ALIGNMENT)
+        {
             return nullptr;
         }
 
