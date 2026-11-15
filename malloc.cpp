@@ -252,6 +252,12 @@ public:
         }
 
         Block *block = Block::from_payload(ptr);
+
+        if (block->marker != MAGIC_MARKER || block->is_free)
+        {
+            std::exit(1);
+        }
+
         new_size = align_up(new_size);
 
         if (block->length >= new_size)
